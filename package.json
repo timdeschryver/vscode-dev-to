@@ -1,0 +1,174 @@
+{
+  "name": "vscode-dev-to",
+  "displayName": "dev.to",
+  "description": "Dev.to in Visual Studio Code",
+  "icon": "resources/devto.png",
+  "version": "0.0.1",
+  "publisher": "timdeschryver",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/timdeschryver/vscode-dev-to.git"
+  },
+  "homepage": "https://github.com/timdeschryver/vscode-dev-to/blob/master/README.md",
+  "galleryBanner": {
+    "color": "#0d36ff",
+    "theme": "dark"
+  },
+  "activationEvents": [
+    "onView:devto.Articles",
+    "onCommand:devto.refreshArticles",
+    "onCommand:devto.addTag",
+    "onCommand:devto.removeTag",
+    "onCommand:devto.createArticle",
+    "onCommand:devto.insertTemplate",
+    "onCommand:devto.setToken",
+    "onCommand:devto.publishArticle"
+  ],
+  "contributes": {
+    "commands": [
+      {
+        "command": "devto.refreshArticles",
+        "title": "Refresh Articles",
+        "category": "dev.to"
+      },
+      {
+        "command": "devto.addTag",
+        "title": "Add Tag",
+        "category": "dev.to"
+      },
+      {
+        "command": "devto.removeTag",
+        "title": "Remove Tag",
+        "category": "dev.to"
+      },
+      {
+        "command": "devto.createArticle",
+        "title": "Create Article",
+        "category": "dev.to"
+      },
+      {
+        "command": "devto.insertTemplate",
+        "title": "Insert Template",
+        "category": "dev.to"
+      },
+      {
+        "command": "devto.setToken",
+        "title": "Set Token",
+        "category": "dev.to"
+      },
+      {
+        "command": "devto.publishArticle",
+        "title": "Publish Article",
+        "category": "dev.to"
+      }
+    ],
+    "menus": {
+      "explorer/context": [
+        {
+          "command": "devto.createArticle",
+          "group": "dev.to"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "devto.refreshArticles",
+          "when": "view == devto.Articles",
+          "group": "navigation"
+        },
+        {
+          "command": "devto.addTag",
+          "when": "view == devto.Articles"
+        }
+      ],
+      "view/item/context": [
+        {
+          "command": "devto.removeTag",
+          "when": "view == devto.Articles && viewItem == tag",
+          "group": "inline"
+        },
+        {
+          "command": "devto.removeTag",
+          "when": "view == devto.Articles && viewItem == tag"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "devto",
+          "title": "dev.to",
+          "icon": "resources/devto.svg"
+        }
+      ]
+    },
+    "views": {
+      "devto": [
+        {
+          "id": "devto.Articles",
+          "name": "Articles",
+          "when": "config.devto.showExplorer == true"
+        }
+      ]
+    },
+    "configuration": {
+      "title": "dev.to",
+      "properties": {
+        "devto.showExplorer": {
+          "type": "boolean",
+          "default": true,
+          "description": "Show or hide the dev.to explorer"
+        },
+        "devto.tags": {
+          "type": "array",
+          "default": [
+            "Top"
+          ],
+          "description": "Tags array"
+        },
+        "devto.token": {
+          "type": "string",
+          "default": "",
+          "description": "Your dev.to token, can be generated at https://dev.to/settings/account"
+        }
+      }
+    }
+  },
+  "engines": {
+    "vscode": "^1.35.0"
+  },
+  "keywords": [
+    "dev.to"
+  ],
+  "categories": [
+    "Other"
+  ],
+  "main": "./out/extension.js",
+  "scripts": {
+    "vscode:prepublish": "yarn run compile",
+    "compile": "tsc -p ./ && cpy ./templates ./out/templates",
+    "watch": "tsc -watch -p ./",
+    "package": "vsce package",
+    "postinstall": "node ./node_modules/vscode/bin/install",
+    "test": "yarn run compile && node ./node_modules/vscode/bin/test"
+  },
+  "devDependencies": {
+    "@types/mocha": "^2.2.42",
+    "@types/node": "^10.12.21",
+    "@types/node-fetch": "^2.3.6",
+    "@types/rimraf": "^2.0.2",
+    "@types/sinon": "^7.0.13",
+    "@typescript-eslint/eslint-plugin": "^1.10.2",
+    "@typescript-eslint/parser": "^1.10.2",
+    "cpy-cli": "^2.0.0",
+    "eslint": "^5.16.0",
+    "rimraf": "^2.6.3",
+    "sinon": "^7.3.2",
+    "typescript": "^3.3.1",
+    "vscode": "^1.1.28"
+  },
+  "dependencies": {
+    "front-matter": "^3.0.2",
+    "node-fetch": "^2.6.0"
+  }
+}

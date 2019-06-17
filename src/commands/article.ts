@@ -54,23 +54,6 @@ export async function insertTemplateHandler() {
   await vscode.window.activeTextEditor!.document.save()
 }
 
-function correctExtension(filename: string, extension = 'md') {
-  if (path.extname(filename) === `.${extension}`) {
-    return filename
-  }
-
-  if (filename.endsWith('.')) {
-    return `${filename}${extension}`
-  }
-
-  return `${filename}.${extension}`
-}
-
-function getTemplate() {
-  const extensionPath = vscode.extensions.getExtension('timdeschryver.vscode-dev-to')!.extensionPath
-  return `${extensionPath}/templates/devto.template`
-}
-
 export function publishArticleHandler() {
   if (!vscode.window.activeTextEditor) {
     vscode.window.showErrorMessage('You have to have the article open in order to publish it')
@@ -92,6 +75,23 @@ export function publishArticleHandler() {
   }
 }
 
+function correctExtension(filename: string, extension = 'md') {
+  if (path.extname(filename) === `.${extension}`) {
+    return filename
+  }
+
+  if (filename.endsWith('.')) {
+    return `${filename}${extension}`
+  }
+
+  return `${filename}.${extension}`
+}
+
+function getTemplate() {
+  const extensionPath = vscode.extensions.getExtension('timdeschryver.vscode-dev-to')!.extensionPath
+  return `${extensionPath}/templates/devto.template`
+}
+
 async function publish(body: string, frontMatter: any, token: string) {
   const data: PostArticle = {
     article: {
@@ -100,7 +100,7 @@ async function publish(body: string, frontMatter: any, token: string) {
       published: frontMatter['published'],
       tags: frontMatter['tags'] ? frontMatter['tags'].split(',').map((p: string) => p.trim()) : [],
       series: frontMatter['series'],
-      publish_under_org: frontMatter['publish_under_org'],
+      organization_id: frontMatter['organization_id'],
       main_image: frontMatter['cover_image'],
       canonical_url: frontMatter['canonical_url'],
       body_markdown: body,

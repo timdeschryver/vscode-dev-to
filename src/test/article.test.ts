@@ -207,7 +207,7 @@ suite('Article', () => {
         published: false
         tags: foo, bar, baz
         series: series
-        publish_under_org: true
+        organization_id: organization_id
         cover_image: cover_image
         canonical_url: canonical_url
         ---
@@ -227,7 +227,7 @@ suite('Article', () => {
         assert.equal(stub.postArticle.firstCall.args[0].article.published, false)
         assert.deepEqual(stub.postArticle.firstCall.args[0].article.tags, ['foo', 'bar', 'baz'])
         assert.equal(stub.postArticle.firstCall.args[0].article.series, 'series')
-        assert.equal(stub.postArticle.firstCall.args[0].article.publish_under_org, true)
+        assert.equal(stub.postArticle.firstCall.args[0].article.organization_id, 'organization_id')
         assert.equal(stub.postArticle.firstCall.args[0].article.main_image, 'cover_image')
         assert.equal(stub.postArticle.firstCall.args[0].article.canonical_url, 'canonical_url')
 

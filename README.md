@@ -1,5 +1,7 @@
 # Dev.to in Visual Studio Code
 
+![Image showing the dev.to explorer and a new article template](https://raw.githubusercontent.com/timdeschryver/vscode-dev-to/master/other/devto.png)
+
 ## Commands
 
 ### The dev.to explorer

@@ -8,7 +8,7 @@ import fetch from 'node-fetch'
 export async function getArticles(tag?: string): Promise<Article[]> {
   const queryString = tag === 'Top' ? '' : `tag=${tag}`
   const articles = await fetch(`https://dev.to/api/articles?${queryString}`).then<Article[]>((res: any) => res.json())
-  return articles
+  return articles.slice(0, 10)
 }
 
 export async function postArticle(article: PostArticle, token: string) {
